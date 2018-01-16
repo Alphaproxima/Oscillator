@@ -110,16 +110,15 @@ void setup() {
 	OCR0A = 4;             //Set top counter frequency 
 	OCR0B = 4;             //duty(OCR0B+1)/(OCR0A+1), this duty cycle is 100%
 //	TIMSK0 |= (1 << OCIE0A);    //Set the ISR COMPA vect
-	
-//	TIMSK0 = (1 << OCIE0A);  // set the ISR COMPA vect
- 	TIMSK1 |= (1<< OCIE1A);  //Set interrupt on compare match  
+//	TIMSK0 = (1 << OCIE0A);  // set the ISR COMPA vect  
 //	TCCR1=0x97;            // ここでモードを設定 125[kHz]
 //	OCR1C = 124;            // 1[ms]ごとにISR(TIM1_COMPA_vect) を実行
 //  	TIMSK = (1 << OCIE1A);  // これにより関数を入れられる (timer1)
 
 	TCCR1A = 0x50; //OC1A/OC1B in toggle state
 	TCCR1B = 0x0B; //set to CTC and 125kHz frequency.
-
+	OCR1A = 124; // 1[ms] ISR(TIM1_COMPA_vect)
+	TIMSK1 |= (1<< OCIE1A);  //Set interrupt on compare match
 	sei(); //enable the interrupt
 }
 
