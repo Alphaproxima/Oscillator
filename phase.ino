@@ -56,7 +56,7 @@ void Phase_LED(float p){
 		timer_LED++;
 			if(timer_LED>time_L){
 //      		digitalWrite(LED, LOW);
-				OCR0B = 4;    // デューティ比変更
+				OCR0B = 4;    // change duty cycle
 				Status_light = 0;
 				timer_LED = 0;
 			}
@@ -103,7 +103,7 @@ void setup() {
 	// Disable interrupts while loading registers
 	cli();
 	
-//  TCCR1 |= (0<<CS13) | (1<<CS12) | (0<<CS11) | (0<<CS10);// 1[MHz]→周期1[μs]
+//  TCCR1 |= (0<<CS13) | (1<<CS12) | (0<<CS11) | (0<<CS10);// 1[MHz]→period 1[μs]
 	
 	TCCR0A=0xF3;           // OCR0A and OCR0B is fast pwm
 	TCCR0B=0x0A;           // Prescaler equal to 1MHz
@@ -111,13 +111,13 @@ void setup() {
 	OCR0B = 4;             //duty(OCR0B+1)/(OCR0A+1), this duty cycle is 100%
 //	TIMSK0 |= (1 << OCIE0A);    //Set the ISR COMPA vect
 //	TIMSK0 = (1 << OCIE0A);  // set the ISR COMPA vect  
-//	TCCR1=0x97;            // ここでモードを設定 125[kHz]
-//	OCR1C = 124;            // 1[ms]ごとにISR(TIM1_COMPA_vect) を実行
-//  	TIMSK = (1 << OCIE1A);  // これにより関数を入れられる (timer1)
+//	TCCR1=0x97;            // 
+//	OCR1C = 124;            // 
+//  	TIMSK = (1 << OCIE1A);  // 
 
 	TCCR1A = 0x50; //OC1A/OC1B in toggle state
 	TCCR1B = 0x0B; //set to CTC and 125kHz frequency.
-	OCR1A = 124; // 1[ms] ISR(TIM1_COMPA_vect)
+	OCR1A = 124; // number of target for 1[ms] ISR(TIM1_COMPA_vect)
 	TIMSK1 |= (1<< OCIE1A);  //Set interrupt on compare match
 	sei(); //enable the interrupt
 }
