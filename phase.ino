@@ -63,6 +63,21 @@ void Phase_LED(float p){
 	}
 }
 
+void dataRead(){
+	int a = analogRead(A3);
+	int b = analogRead(A2);
+	
+	String temp = "{\"x\":\"";
+    	temp += a;
+    	temp +="\",\"y\":\"";
+    	temp += b;
+    	temp +="\"}";
+
+	Serial.println(temp);
+
+}
+
+
 // Have to change this switch with keypress
 // Switch
 void SWITCH_stand(){
@@ -131,6 +146,19 @@ ISR(TIMER1_COMPA_vect)
 {
 	SWITCH_stand();
 	Phase_update();
+	dataRead();
+	
+/*	int a = analogRead(A3);
+	int b = analogRead(A2);
+	
+	String temp = "{\"x\":\"";
+    	temp += a;
+    	temp +="\",\"y\":\"";
+    	temp += b;
+    	temp +="\"}";
+
+	Serial.println(temp);
+*/	
 }
 
 
